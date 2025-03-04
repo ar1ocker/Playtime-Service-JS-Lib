@@ -35,7 +35,7 @@ export default class PlaytimeServiceAPI {
 
   /**
    *
-   * @param {Array<number>} steamIDs
+   * @param {Array<number | string>} steamIDs
    * @param {boolean} isNeedUpdate
    * @returns {Promise<Array<ReturnedPlaytime>>}
    */
@@ -64,7 +64,7 @@ export default class PlaytimeServiceAPI {
 
   /**
    *
-   * @param {number} steamID
+   * @param {number | string} steamID
    * @param {boolean} isNeedUpdate
    * @returns {Promise<ReturnedPlaytime>}
    */
