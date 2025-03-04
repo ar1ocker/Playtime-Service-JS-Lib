@@ -71,6 +71,30 @@ export default class PlaytimeServiceAPI {
   async requestPlaytimeBySteamID(steamID, isNeedUpdate = false) {
     return (await this.requestPlaytimesBySteamIDs([steamID], isNeedUpdate))[0];
   }
+
+  /**
+   * 
+   * @param {number | string} steamID 
+   * @param {boolean} isNeedUpdate 
+   * @returns {Promise<number>}
+   */
+  async getPlayerMaxSecondsPlaytime(steamID, isNeedUpdate = false) {
+    const playtime = await this.requestPlaytimeBySteamID(steamID, isNeedUpdate);
+    
+    return Math.max(playtime.bmPlaytime, playtime.steamPlaytime);
+  }
+
+  /**
+   *
+   * @param {Array<number | string>} steamIDs
+   * @param {boolean} isNeedUpdate
+   * @returns {Promise<number>}
+   */
+  async getPlayersTotalSecondsPlaytime(steamIDs, isNeedUpdate = false) {
+    const playtimes = await this.requestPlaytimesBySteamIDs(steamIDs, isNeedUpdate);
+
+    return playtimes.reduce((prev, curr) => prev + Math.max(curr.bmPlaytime, curr.steamPlaytime), 0);
+  }
 }
 
 class ReturnedPlaytime {
