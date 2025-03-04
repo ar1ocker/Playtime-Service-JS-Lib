@@ -80,8 +80,12 @@ export default class PlaytimeServiceAPI {
    */
   async getPlayerMaxSecondsPlaytime(steamID, isNeedUpdate = false) {
     const playtime = await this.requestPlaytimeBySteamID(steamID, isNeedUpdate);
-    
-    return Math.max(playtime.bmPlaytime, playtime.steamPlaytime);
+
+    if (playtime.bmPlaytime || playtime.steamPlaytime) {
+      return Math.max(playtime.bmPlaytime, playtime.steamPlaytime);
+    }
+
+    return TIME_IS_UNKNOWN;
   }
 
   /**
