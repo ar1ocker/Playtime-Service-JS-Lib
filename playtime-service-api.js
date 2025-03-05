@@ -56,7 +56,7 @@ export default class PlaytimeServiceAPI {
         },
       });
     } catch (error) {
-      throw new Error(`Failed to fetch playtimes: ${error.message}, ${error.response.data}`);
+      throw new Error(`Failed to fetch playtimes: ${error.message}, ${JSON.stringify(error.response.data)}`);
     }
 
     return response.data.map((value) => new ReturnedPlaytime(value.steam_id, value.steam_playtime, value.bm_playtime));
@@ -73,10 +73,10 @@ export default class PlaytimeServiceAPI {
   }
 
   /**
-   * 
-   * @param {number | string} steamID 
-   * @param {boolean} isNeedUpdate 
-   * @returns {Promise<number>}
+   *
+   * @param {number | string} steamID
+   * @param {boolean} isNeedUpdate
+   * @returns {Promise<number | TIME_IS_UNKNOWN>}
    */
   async getPlayerMaxSecondsPlaytime(steamID, isNeedUpdate = false) {
     const playtime = await this.requestPlaytimeBySteamID(steamID, isNeedUpdate);
