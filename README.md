@@ -1,4 +1,4 @@
-#Playtime Service JS Lib
+# Playtime Service JS Lib
 
 Небольшая библиотека которая позволяет делать запросы к Playtime-Service, преимущественно предназначена для SquadJS
 
